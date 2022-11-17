@@ -17,6 +17,9 @@ export const Wrapper = styled.div`
 export const CardInner = styled.div`
   transition: transform 1s;
   transform-style: preserve-3d;
+  width: 500px;
+  position: relative;
+  background-color: var(--background-color);
 
   &.flipped {
     transform: rotateY(180deg);

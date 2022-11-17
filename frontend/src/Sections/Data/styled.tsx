@@ -4,8 +4,21 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
-  align-items: center;
+
+  h1 {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 30px;
+    letter-spacing: 1px;
+  }
+`;
+
+export const ItemsWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 `;
 
 export const Item = styled.div`

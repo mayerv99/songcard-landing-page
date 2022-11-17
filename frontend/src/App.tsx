@@ -6,9 +6,11 @@ import Navbar from "./Components/Navbar";
 
 // SectionComponent
 import Section from "./Components/Section";
+
 // Sections
 import Title from "./Sections/Title";
 import Data from "./Sections/Data";
+import Steps from "./Sections/Steps";
 
 type Props = {};
 
@@ -18,7 +20,8 @@ function App({}: Props) {
       <GlobalStyle />
       <Navbar />
       <Section component={<Title />} />
-      <Section component={<Data />} />
+      <Section component={<Data />} half={true} />
+      <Section component={<Steps />} half={true} isLight={false} />
     </>
   );
 }
