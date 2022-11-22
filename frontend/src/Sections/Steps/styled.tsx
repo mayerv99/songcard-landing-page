@@ -40,6 +40,30 @@ export const StepItem = styled.li<{ selected: Boolean }>`
   cursor: pointer;
 `;
 
-export const StepExample = styled.div`
+export const StepWrapper = styled.div``;
+
+export const LyricsWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 50%;
+  justify-content: center;
+  margin: 20px auto;
+
+  div {
+    margin: 0 2px;
+  }
+`;
+
+export const Line = styled.p`
   width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
+export const Word = styled.div<{ selected: Boolean }>`
+  border-radius: 3px;
+  padding: 2px 4px;
+  ${(props) =>
+    props.selected && "background-color: var(--primary-color); color: white;"}
 `;
