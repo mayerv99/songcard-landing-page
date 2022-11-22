@@ -21,7 +21,7 @@ function App({}: Props) {
       <Navbar />
       <Section component={<Title />} />
       <Section component={<Data />} half={true} />
-      <Section component={<Steps />} half={true} isLight={false} />
+      <Section component={<Steps />} isLight={false} />
     </>
   );
 }

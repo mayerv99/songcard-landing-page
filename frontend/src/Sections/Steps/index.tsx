@@ -1,39 +1,44 @@
-import React from "react";
-import { ItemsWrapper } from "../Data/styled";
+import React, { useState } from "react";
 
-import { Wrapper, Card, Arrow, CardBody } from "./styled";
+import {
+  StepsCard,
+  StepsSelector,
+  Wrapper,
+  StepItem,
+  StepExample,
+} from "./styled";
 
 type Props = {};
 
 function Steps({}: Props) {
+  const [selected, setSelected] = useState("1");
   const loremIpsum =
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.";
+
   const steps = [
-    { title: "Selecione a música", description: loremIpsum },
-    { title: "Toque nas palavras que deseja", description: loremIpsum },
-    {
-      title: "Estude a sua música de forma personalizada",
-      description: loremIpsum,
-    },
+    { number: "1", value: loremIpsum },
+    { number: "2", value: loremIpsum },
+    { number: "3", value: loremIpsum },
+    { number: "4", value: loremIpsum },
+    { number: "5", value: loremIpsum },
+    { number: "6", value: loremIpsum },
   ];
 
   return (
     <Wrapper>
-      <h1>Passos necessários</h1>
-      <ItemsWrapper>
-        {steps.map((item, index) => (
-          <>
-            <Card>
-              <header id="carlos">
-                <span>{index + 1}</span>
-                {item.title}
-              </header>
-              <CardBody>{item.description}</CardBody>
-            </Card>
-            {index !== 2 && <Arrow>&#8594;</Arrow>}
-          </>
-        ))}
-      </ItemsWrapper>
+      <StepsCard>
+        <StepsSelector>
+          {steps.map((item) => (
+            <StepItem
+              key={item.number}
+              selected={selected === item.number}
+              onClick={() => setSelected(item.number)}
+            >
+              {item.number}
+            </StepItem>
+          ))}
+        </StepsSelector>
+      </StepsCard>
     </Wrapper>
   );
 }
