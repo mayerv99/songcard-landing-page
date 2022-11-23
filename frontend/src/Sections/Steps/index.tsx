@@ -3,7 +3,11 @@ import StepsExample from "./StepsExample";
 
 import _ from "lodash";
 
-import axios from "axios";
+import SongProvider from "./Context/SongContext";
+
+// Steps
+import Step2 from "./Step2";
+import Step3 from "./Step3";
 
 import {
   StepsCard,
@@ -11,9 +15,6 @@ import {
   Wrapper,
   StepItem,
   StepWrapper,
-  LyricsWrapper,
-  Line,
-  Word,
 } from "./styled";
 
 type Props = {};
@@ -38,90 +39,11 @@ function Steps({}: Props) {
     return <StepWrapper></StepWrapper>;
   };
 
-  const Step2 = () => {
-    const url =
-      "https://cors-anywhere.herokuapp.com/http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=250910088&apikey=4306ade10d6239b3b17e0aadf07f0ff9";
-
-    const handleSearch = async () => {
-      const response: any = await axios.get(url).then((res) => res.data);
-      setLyrics(response.message.body.lyrics.lyrics_body);
-
-      setSelected(steps[2]);
-    };
-
-    return (
-      <StepWrapper>
-        <input ref={InputRef} />
-        <button onClick={handleSearch}>Buscar</button>
-      </StepWrapper>
-    );
-  };
-
-  const Step3 = () => {
-    const lines = lyrics?.split("\n");
-
-    const handleSelectWord = (selectedWord: SelectedWord) => {
-      if (checkIfWordExists(selectedWord)) {
-        return;
-      }
-      return addWord(selectedWord);
-    };
-
-    const checkIfWordExists = (selectedWord: SelectedWord) => {
-      console.log("inicio: ", selectedWords);
-      console.log("palavras: ", selectedWord);
-      console.log(
-        "validou: ",
-        selectedWords.some((element) => _.isEqual(element, selectedWord))
-      );
-
-      return selectedWords.some((element) => _.isEqual(element, selectedWord));
-    };
-
-    const addWord = (selectedWord: SelectedWord) => {
-      console.log(selectedWord);
-      setSelectedWords((prevState) => [...prevState, selectedWord]);
-    };
-
-    const removeWord = () => {};
-
-    return (
-      <StepWrapper>
-        <LyricsWrapper>
-          {lines?.map((item, lineIndex) => {
-            const words = item.split(" ");
-
-            return (
-              <Line>
-                {words.map((word, wordIndex) => (
-                  <Word
-                    selected={checkIfWordExists({ lineIndex, wordIndex, word })}
-                    onClick={() =>
-                      handleSelectWord({
-                        lineIndex,
-                        wordIndex,
-                        word,
-                      })
-                    }
-                  >
-                    {word}
-                  </Word>
-                ))}
-                <br />
-              </Line>
-            );
-          })}
-        </LyricsWrapper>
-      </StepWrapper>
-    );
-  };
-
   const loremIpsum = "Lorem Ipsum";
-
   const steps = [
-    { value: "1", label: loremIpsum, component: <Step1 /> },
-    { value: "2", label: loremIpsum, component: <Step2 /> },
-    { value: "3", label: loremIpsum, component: <Step3 /> },
+    // { value: "1", label: loremIpsum, component: <Step1 /> },
+    { value: "2", label: "Busque a sua música", component: <Step2 /> },
+    { value: "3", label: "Escolha as palavras", component: <Step3 /> },
     // { value: "4", label: loremIpsum },
   ];
 
@@ -141,7 +63,9 @@ function Steps({}: Props) {
             </StepItem>
           ))}
         </StepsSelector>
-        <StepsExample currentStep={selected} />
+        <SongProvider>
+          <StepsExample currentStep={selected} />
+        </SongProvider>
       </StepsCard>
     </Wrapper>
   );
