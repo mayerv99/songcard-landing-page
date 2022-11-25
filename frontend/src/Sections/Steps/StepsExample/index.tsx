@@ -2,17 +2,12 @@ import React from "react";
 
 import { Wrapper } from "./styled";
 
-type Props = {
-  currentStep: CurrentStep;
-};
+import useSongData from "../Hooks/useSongData";
 
-export interface CurrentStep {
-  value: String;
-  label: String;
-  component: React.ReactNode;
-}
+type Props = {};
 
-function StepsExample({ currentStep }: Props) {
+function StepsExample({}: Props) {
+  const { currentStep } = useSongData();
   return (
     <Wrapper>
       <h1>{currentStep.label}</h1>

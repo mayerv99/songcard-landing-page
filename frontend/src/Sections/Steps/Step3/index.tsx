@@ -40,6 +40,8 @@ function Step3() {
     );
   };
 
+  const chekcIfIsFirstWord = () => {};
+
   return (
     <StepWrapper>
       <LyricsWrapper>

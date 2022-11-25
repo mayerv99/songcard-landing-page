@@ -1,30 +1,78 @@
-import React, { useRef, useContext } from "react";
+import { useRef, useContext, KeyboardEvent, useEffect } from "react";
 
 import axios from "axios";
 
-import { StepWrapper } from "./styled";
+import { StepWrapper, InputWrapper, SongListWrapper } from "./styled";
 
 import { SongContext, SongData } from "../Context/SongContext";
 
+import searchIcon from "../../../assets/Icons/search.svg";
+
+import Card from "./Components/Card";
+
+import { Song } from "./@types";
+
 function Step2() {
-  const { lyrics, setLyrics, setCurrentStep, steps } = useContext(
-    SongContext
-  ) as SongData;
-  const InputRef = useRef(null);
+  const {
+    setLyrics,
+    currentStep,
+    setCurrentStep,
+    steps,
+    songList,
+    setSongList,
+    searchedArtirst,
+    setSearchedArtirst,
+  } = useContext(SongContext) as SongData;
 
-  const url =
-    "https://cors-anywhere.herokuapp.com/http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=250910088&apikey=4306ade10d6239b3b17e0aadf07f0ff9";
+  const InputRef = useRef<any>(null);
 
-  const handleSearch = async () => {
-    const response: any = await axios.get(url).then((res) => res.data);
-    setLyrics(response.message.body.lyrics.lyrics_body);
+  const handleSearch = async (e: KeyboardEvent<HTMLInputElement>) => {
+    const artistUrl = `https://cors-anywhere.herokuapp.com/http://api.musixmatch.com/ws/1.1/track.search?q_artist=${InputRef.current.value}&page_size=18&page=1&s_track_rating=desc& f_has_lyrics&apikey=4306ade10d6239b3b17e0aadf07f0ff9`;
+    if (e.key === "Enter") {
+      const response: any = await axios
+        .get(artistUrl)
+        .then((res) => res.data.message.body.track_list);
+      setSongList(response);
+    }
+  };
+
+  const handleSelectSong = async (songId: Number) => {
+    const songUrl = `https://cors-anywhere.herokuapp.com/http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=${songId}&apikey=4306ade10d6239b3b17e0aadf07f0ff9`;
+
+    const response = await axios
+      .get(songUrl)
+      .then((res) => res.data.message.body.lyrics.lyrics_body);
+
+    setLyrics(response);
+    setSearchedArtirst(InputRef.current.value);
     setCurrentStep(steps[1]);
   };
 
+  useEffect(() => {
+    if (currentStep.value === "1" && searchedArtirst) {
+      InputRef.current.value = searchedArtirst;
+    }
+  }, [currentStep]);
+
   return (
     <StepWrapper>
-      <input ref={InputRef} />
-      <button onClick={handleSearch}>Buscar</button>
+      <InputWrapper>
+        <img src={searchIcon} />
+        <input
+          onKeyDown={(e) => handleSearch(e)}
+          ref={InputRef}
+          placeholder="Busque aqui o/a autor(a) que deseja"
+        />
+      </InputWrapper>
+      <SongListWrapper>
+        {songList?.map((song) => (
+          <Card
+            song={song}
+            key={song.track.track_id}
+            selectSong={handleSelectSong}
+          />
+        ))}
+      </SongListWrapper>
     </StepWrapper>
   );
 }
