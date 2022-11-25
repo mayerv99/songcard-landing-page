@@ -14,6 +14,7 @@ function StepsSelector({}: Props) {
         <StepItem
           selected={currentStep.value === item.value}
           onClick={() => setCurrentStep(item)}
+          disabled={!item.unlocked}
         >
           {item.value}
         </StepItem>

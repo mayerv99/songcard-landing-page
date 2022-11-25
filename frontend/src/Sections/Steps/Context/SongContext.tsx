@@ -20,6 +20,7 @@ interface CurrentStep {
   value: String;
   label?: String;
   component: React.ReactNode;
+  unlocked: Boolean;
 }
 
 export interface SongData {
@@ -34,22 +35,57 @@ export interface SongData {
   setSongList: Function;
   searchedArtirst: String;
   setSearchedArtirst: Function;
+  showError: Function;
+  alertMessage: String;
+  setAlertMessage: Function;
 }
 
 export const SongContext = createContext<SongData | null>(null);
 
 export default function SongProvider({ children }: Props) {
-  const steps: CurrentStep[] = [
-    { value: "1", component: <Step2 /> },
-    { value: "2", label: "Escolha as palavras", component: <Step3 /> },
-    { value: "3", label: "Sua coleção", component: <Step4 /> },
-  ];
-
   const [lyrics, setLyrics] = useState<String>("");
   const [selectedWords, setSelectedWords] = useState<SelectedWord[]>([]);
+  const [alertMessage, setAlertMessage] = useState<String>("");
+
+  const checkIfHasSong = () => {
+    return lyrics ? true : false;
+  };
+
+  const checkIfHasWords = () => {
+    return selectedWords?.length > 0 ? true : false;
+  };
+
+  const showError = (message: String) => {
+    return setAlertMessage(message);
+  };
+
+  const steps: CurrentStep[] = [
+    { value: "1", component: <Step2 />, unlocked: true },
+    {
+      value: "2",
+      label: "Escolha as palavras",
+      component: <Step3 />,
+      unlocked: checkIfHasSong(),
+    },
+    {
+      value: "3",
+      label: "Sua coleção",
+      component: <Step4 />,
+      unlocked: checkIfHasWords(),
+    },
+  ];
+
   const [currentStep, setCurrentStep] = useState<CurrentStep>(steps[0]);
   const [songList, setSongList] = useState<Song[]>([]);
   const [searchedArtirst, setSearchedArtirst] = useState<String>("");
+
+  const resetValues = () => {
+    setSelectedWords([]);
+  };
+
+  useEffect(() => {
+    resetValues();
+  }, [lyrics]);
 
   return (
     <SongContext.Provider
@@ -65,6 +101,9 @@ export default function SongProvider({ children }: Props) {
         setSongList,
         searchedArtirst,
         setSearchedArtirst,
+        showError,
+        alertMessage,
+        setAlertMessage,
       }}
     >
       {children}

@@ -14,6 +14,9 @@ function useSongData() {
     setSongList,
     searchedArtirst,
     setSearchedArtirst,
+    showError,
+    alertMessage,
+    setAlertMessage,
   } = useContext(SongContext) as SongData;
   return {
     lyrics,
@@ -27,6 +30,9 @@ function useSongData() {
     setSongList,
     searchedArtirst,
     setSearchedArtirst,
+    showError,
+    alertMessage,
+    setAlertMessage,
   };
 }
 

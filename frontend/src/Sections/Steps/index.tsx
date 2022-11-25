@@ -4,13 +4,9 @@ import StepsExample from "./StepsExample";
 import _ from "lodash";
 
 import SongProvider from "./Context/SongContext";
+import Alert from "../../Components/Alert";
 
-// Steps
-import Step2 from "./Step2";
-import Step3 from "./Step3";
-import Step4 from "./Step4";
-
-import { StepsCard, Wrapper, StepItem } from "./styled";
+import { StepsCard, Wrapper } from "./styled";
 
 import StepsSelector from "./StepsSelector";
 
@@ -21,8 +17,8 @@ function Steps({}: Props) {
     <Wrapper>
       <StepsCard>
         <SongProvider>
-          <StepsSelector></StepsSelector>
-
+          <Alert />
+          <StepsSelector />
           <StepsExample />
         </SongProvider>
       </StepsCard>

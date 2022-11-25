@@ -16,8 +16,8 @@ function Card({ song, selectSong }: Props) {
     >
       <header>
         <h1>
-          {song.track.track_name.substring(0, 15)}
-          {song.track.track_name.length > 15 && "..."}
+          {song.track.track_name.substring(0, 20)}
+          {song.track.track_name.length > 20 && "..."}
         </h1>
       </header>
       <CardBody></CardBody>

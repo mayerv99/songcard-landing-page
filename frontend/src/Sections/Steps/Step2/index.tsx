@@ -22,6 +22,7 @@ function Step2() {
     setSongList,
     searchedArtirst,
     setSearchedArtirst,
+    setAlertMessage,
   } = useContext(SongContext) as SongData;
 
   const InputRef = useRef<any>(null);
@@ -42,7 +43,11 @@ function Step2() {
     const response = await axios
       .get(songUrl)
       .then((res) => res.data.message.body.lyrics.lyrics_body);
-
+    if (response === "") {
+      return setAlertMessage(
+        "Não foi possível recuperar a letra desta música, por favor tente escolher outra."
+      );
+    }
     setLyrics(response);
     setSearchedArtirst(InputRef.current.value);
     setCurrentStep(steps[1]);

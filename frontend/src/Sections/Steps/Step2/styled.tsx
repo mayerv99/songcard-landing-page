@@ -40,7 +40,7 @@ export const InputWrapper = styled.div`
   }
 `;
 
-export const SongListWrapper = styled.div`
+export const SongListWrapper = styled.ul`
   width: 95%;
   display: flex;
   flex-wrap: wrap;
@@ -48,6 +48,9 @@ export const SongListWrapper = styled.div`
   max-height: 90%;
   overflow-y: scroll;
   margin: 0 0 0 auto;
+  transition: all 0.2s;
+  list-style: none;
+
   ::-webkit-scrollbar {
     background-color: transparent;
   }

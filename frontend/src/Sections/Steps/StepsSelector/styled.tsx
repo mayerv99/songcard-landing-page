@@ -10,13 +10,17 @@ export const Wrapper = styled.ul`
   height: 100%;
 `;
 
-export const StepItem = styled.li<{ selected: Boolean }>`
+export const StepItem = styled.li<{ selected: Boolean; disabled: Boolean }>`
   padding: 14px 19px;
   color: ${(props) => (props.selected ? "white" : "var(--primary-color)")};
   background-color: ${(props) =>
     props.selected ? "var(--primary-color)" : "var(--background-color-light)"};
+  ${(props) =>
+    props.disabled &&
+    "background-color:var(--background-color-light);color: var(--background-color);pointer-events: none;"}
+
   border-radius: 50px;
   list-style: none;
   margin: auto;
-  cursor: pointer;
+  cursor: ${(props) => (props.disabled ? "" : "pointer")};
 `;

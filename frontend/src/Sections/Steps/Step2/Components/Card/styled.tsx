@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div<{ isLoading: Boolean }>`
+export const Wrapper = styled.li<{ isLoading: Boolean }>`
   width: 30%;
   background-color: var(--background-color-light);
   margin: 10px 0;
@@ -29,7 +29,6 @@ export const CardBody = styled.div``;
 export const CardFooter = styled.div`
   width: 100%;
   color: #c1c1c1;
-  text-align: right;
   font-size: 14px;
 
   strong {
