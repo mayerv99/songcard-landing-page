@@ -12,7 +12,7 @@ export const Wrapper = styled.li<{ isLoading: Boolean }>`
   header {
     display: flex;
     gap: 5px;
-    border-bottom: 1px solid var(--background-color);
+    /* border-bottom: 1px solid var(--background-color); */
     padding: 0 0 10px;
     margin-bottom: 10px;
     align-items: center;
