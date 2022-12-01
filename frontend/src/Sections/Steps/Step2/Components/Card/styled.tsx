@@ -1,18 +1,17 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.li<{ isLoading: Boolean }>`
+export const Wrapper = styled.li`
   width: 30%;
   background-color: var(--background-color-light);
   margin: 10px 0;
-  padding: ${(props) => !props.isLoading && "20px"};
   border-radius: 5px;
   min-height: 100px;
   cursor: pointer;
+  padding: 10px;
 
   header {
     display: flex;
     gap: 5px;
-    /* border-bottom: 1px solid var(--background-color); */
     padding: 0 0 10px;
     margin-bottom: 10px;
     align-items: center;

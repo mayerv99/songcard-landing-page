@@ -7,13 +7,8 @@ import { Wrapper, CardBody, CardFooter } from "./styled";
 type Props = { song: Song; selectSong: Function };
 
 function Card({ song, selectSong }: Props) {
-  const [isLoading, setIsLoading] = useState(false);
-
   return (
-    <Wrapper
-      isLoading={isLoading}
-      onClick={() => selectSong(song.track.track_id)}
-    >
+    <Wrapper onClick={() => selectSong(song.track.track_id)}>
       <header>
         <h1>
           {song.track.track_name.substring(0, 20)}

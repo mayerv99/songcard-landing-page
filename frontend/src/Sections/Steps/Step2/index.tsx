@@ -32,7 +32,8 @@ function Step2() {
     if (e.key === "Enter") {
       const response: any = await axios
         .get(artistUrl)
-        .then((res) => res.data.message.body.track_list);
+        .then((res) => res.data.message.body.track_list)
+        .catch((err) => setAlertMessage("Não foi possível fazer a requisição"));
       setSongList(response);
     }
   };

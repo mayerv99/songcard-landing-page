@@ -36,7 +36,7 @@ export interface SongData {
   searchedArtirst: String;
   setSearchedArtirst: Function;
   showError: Function;
-  alertMessage: String;
+  alertMessage: String | null;
   setAlertMessage: Function;
 }
 
@@ -45,7 +45,7 @@ export const SongContext = createContext<SongData | null>(null);
 export default function SongProvider({ children }: Props) {
   const [lyrics, setLyrics] = useState<String>("");
   const [selectedWords, setSelectedWords] = useState<SelectedWord[]>([]);
-  const [alertMessage, setAlertMessage] = useState<String>("");
+  const [alertMessage, setAlertMessage] = useState<String | null>("");
 
   const checkIfHasSong = () => {
     return lyrics ? true : false;
@@ -56,7 +56,8 @@ export default function SongProvider({ children }: Props) {
   };
 
   const showError = (message: String) => {
-    return setAlertMessage(message);
+    setAlertMessage(message);
+    setTimeout(() => setAlertMessage(null));
   };
 
   const steps: CurrentStep[] = [
